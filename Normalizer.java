@@ -10,6 +10,11 @@ import java.time.*;
 import java.time.format.*;
  
 public class Normalizer {
+ 	/**
+ 	 * Normalizes a CSV line
+ 	 * @param rawLine The CSV line to process.
+ 	 * @return The processed CSV line.
+ 	 **/
  	private String normalize(String rawLine) {
  		int separatorIndex1 = rawLine.indexOf(",");
  		String timestamp = rawLine.substring(0, separatorIndex1);
@@ -58,6 +63,11 @@ public class Normalizer {
  			+ formattedFooDuration + "," + formattedBarDuration + "," + totalDuration + "," + notes;
  	}
  	
+ 	/**
+ 	 * Converts a timestamp to RFC3339 Eastern time.
+ 	 * @param timestamp The raw timestamp.
+ 	 * @return The processed timestamp.
+ 	 **/
  	private String formatTimestamp(String timestamp) {
  		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy h:mm:ss a", Locale.US);
  		try {
@@ -71,14 +81,29 @@ public class Normalizer {
 		}
  	}
  	
+ 	/**
+ 	 * Left pads a zip code with zeroes.
+ 	 * @param zip The raw zip code.
+ 	 * @return The padded zip code.
+ 	 **/
  	private String formatZip(String zip) {
  		return String.format("%5s", zip).replace(' ', '0');
  	}
-
+ 	
+ 	/**
+ 	 * Converts a name to uppercase
+ 	 * @param fullName The raw name.
+ 	 * @return The uppercase name.
+ 	 **/
  	private String formatFullName(String fullName) {
  		return fullName.toUpperCase();
  	}
-
+ 	
+ 	/**
+ 	 * Converts a HH:MM:SS.MS duration to total seconds.
+ 	 * @param duration The raw time span.
+ 	 * @return The converted duration in double form.
+ 	 **/
  	private double formatDuration(String duration) {
 		String[] tokens = duration.split(":");
 		try {
